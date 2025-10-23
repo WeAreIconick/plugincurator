@@ -116,7 +116,14 @@ class Admin_Menu {
         if ( isset( $_POST['rfpm_save_settings'] ) && 
              isset( $_POST['rfpm_settings_nonce'] ) && 
              wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['rfpm_settings_nonce'] ) ), 'rfpm_save_settings' ) ) {
-            $this->handle_settings_save();
+            
+            // Extract and sanitize POST data.
+            $remote_url_input = isset( $_POST['rfpm_remote_url'] ) ? sanitize_text_field( wp_unslash( $_POST['rfpm_remote_url'] ) ) : '';
+            $api_key_input    = isset( $_POST['rfpm_api_key'] ) ? sanitize_text_field( wp_unslash( $_POST['rfpm_api_key'] ) ) : '';
+            $cache_duration_input = isset( $_POST['rfpm_cache_duration'] ) ? absint( $_POST['rfpm_cache_duration'] ) : 0;
+            
+            // Pass sanitized data to handler.
+            $this->handle_settings_save( $remote_url_input, $api_key_input, $cache_duration_input );
         }
 
         // Get current settings.
@@ -134,13 +141,15 @@ class Admin_Menu {
      * Handle settings save.
      *
      * @since 2.0.0
+     *
+     * @param string $remote_url Remote URL input.
+     * @param string $api_key API key input.
+     * @param int    $cache_duration Cache duration input.
      */
-    private function handle_settings_save() {
-        // Nonce is already verified in render_admin_page() before calling this method.
-
+    private function handle_settings_save( $remote_url, $api_key, $cache_duration ) {
         // Validate and save remote URL.
-        if ( isset( $_POST['rfpm_remote_url'] ) ) {
-            $url = $this->settings->validate_url( sanitize_text_field( wp_unslash( $_POST['rfpm_remote_url'] ) ) );
+        if ( ! empty( $remote_url ) ) {
+            $url = $this->settings->validate_url( $remote_url );
             if ( false !== $url ) {
                 $this->settings->update( 'rfpm_remote_url', $url );
             } else {
@@ -155,15 +164,13 @@ class Admin_Menu {
         }
 
         // Save API key.
-        if ( isset( $_POST['rfpm_api_key'] ) ) {
-            $api_key = sanitize_text_field( wp_unslash( $_POST['rfpm_api_key'] ) );
+        if ( ! empty( $api_key ) || '' === $api_key ) {
             $this->settings->update( 'rfpm_api_key', $api_key );
         }
 
         // Save cache duration.
-        if ( isset( $_POST['rfpm_cache_duration'] ) ) {
-            $duration = absint( $_POST['rfpm_cache_duration'] );
-            $this->settings->update( 'rfpm_cache_duration', $duration );
+        if ( $cache_duration > 0 ) {
+            $this->settings->update( 'rfpm_cache_duration', $cache_duration );
         }
 
         // Clear cache after settings change.
