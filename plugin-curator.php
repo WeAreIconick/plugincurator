@@ -8,7 +8,7 @@
  * Author URI: https://iconick.io
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: remote-featured-plugins
+ * Text Domain: plugincurator
  * Domain Path: /languages
  * Requires at least: 5.8
  * Requires PHP: 7.4
@@ -76,13 +76,6 @@ spl_autoload_register( 'rfpm_autoloader' );
  * @since 2.0.0
  */
 function rfpm_init() {
-    // Load text domain for translations.
-    load_plugin_textdomain(
-        'remote-featured-plugins',
-        false,
-        dirname( RFPM_PLUGIN_BASENAME ) . '/languages'
-    );
-
     // Initialize the main plugin class.
     require_once RFPM_PLUGIN_DIR . 'includes/class-plugin.php';
     

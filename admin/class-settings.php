@@ -138,11 +138,11 @@ class Settings {
      */
     public function get_cache_duration_options() {
         return array(
-            1 * HOUR_IN_SECONDS  => __( '1 Hour', 'remote-featured-plugins' ),
-            3 * HOUR_IN_SECONDS  => __( '3 Hours', 'remote-featured-plugins' ),
-            6 * HOUR_IN_SECONDS  => __( '6 Hours', 'remote-featured-plugins' ),
-            12 * HOUR_IN_SECONDS => __( '12 Hours', 'remote-featured-plugins' ),
-            24 * HOUR_IN_SECONDS => __( '24 Hours', 'remote-featured-plugins' ),
+            1 * HOUR_IN_SECONDS  => __( '1 Hour', 'plugincurator' ),
+            3 * HOUR_IN_SECONDS  => __( '3 Hours', 'plugincurator' ),
+            6 * HOUR_IN_SECONDS  => __( '6 Hours', 'plugincurator' ),
+            12 * HOUR_IN_SECONDS => __( '12 Hours', 'plugincurator' ),
+            24 * HOUR_IN_SECONDS => __( '24 Hours', 'plugincurator' ),
         );
     }
 }

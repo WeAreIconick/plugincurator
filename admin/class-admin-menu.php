@@ -73,8 +73,8 @@ class Admin_Menu {
      */
     public function add_admin_menu() {
         add_management_page(
-            __( 'Featured Plugins Manager', 'remote-featured-plugins' ),
-            __( 'Featured Plugins', 'remote-featured-plugins' ),
+            __( 'Featured Plugins Manager', 'plugincurator' ),
+            __( 'Featured Plugins', 'plugincurator' ),
             'manage_options',
             'rfpm-settings',
             array( $this, 'render_admin_page' )
@@ -93,7 +93,7 @@ class Admin_Menu {
         $settings_link = sprintf(
             '<a href="%s">%s</a>',
             esc_url( admin_url( 'tools.php?page=rfpm-settings' ) ),
-            esc_html__( 'Settings', 'remote-featured-plugins' )
+            esc_html__( 'Settings', 'plugincurator' )
         );
 
         array_unshift( $links, $settings_link );
@@ -109,7 +109,7 @@ class Admin_Menu {
     public function render_admin_page() {
         // Check user capabilities.
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'remote-featured-plugins' ) );
+            wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'plugincurator' ) );
         }
 
         // Handle settings save.
@@ -140,7 +140,7 @@ class Admin_Menu {
             add_settings_error(
                 'rfpm_messages',
                 'rfpm_nonce_error',
-                __( 'Security check failed. Please try again.', 'remote-featured-plugins' ),
+                __( 'Security check failed. Please try again.', 'plugincurator' ),
                 'error'
             );
             return;
@@ -155,7 +155,7 @@ class Admin_Menu {
                 add_settings_error(
                     'rfpm_messages',
                     'rfpm_invalid_url',
-                    __( 'Invalid remote URL. Please provide a valid HTTP or HTTPS URL.', 'remote-featured-plugins' ),
+                    __( 'Invalid remote URL. Please provide a valid HTTP or HTTPS URL.', 'plugincurator' ),
                     'error'
                 );
                 return;
@@ -180,7 +180,7 @@ class Admin_Menu {
         add_settings_error(
             'rfpm_messages',
             'rfpm_settings_saved',
-            __( 'Settings saved successfully!', 'remote-featured-plugins' ),
+            __( 'Settings saved successfully!', 'plugincurator' ),
             'success'
         );
     }
@@ -194,12 +194,12 @@ class Admin_Menu {
         // Verify nonce.
         if ( ! isset( $_POST['rfpm_refresh_nonce'] ) ||
              ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['rfpm_refresh_nonce'] ) ), 'rfpm_refresh_cache' ) ) {
-            wp_die( esc_html__( 'Security check failed.', 'remote-featured-plugins' ) );
+            wp_die( esc_html__( 'Security check failed.', 'plugincurator' ) );
         }
 
         // Check capabilities.
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html__( 'Unauthorized access.', 'remote-featured-plugins' ) );
+            wp_die( esc_html__( 'Unauthorized access.', 'plugincurator' ) );
         }
 
         // Clear cache.
@@ -227,12 +227,12 @@ class Admin_Menu {
         // Verify nonce.
         if ( ! isset( $_POST['rfpm_test_nonce'] ) ||
              ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['rfpm_test_nonce'] ) ), 'rfpm_test_connection' ) ) {
-            wp_die( esc_html__( 'Security check failed.', 'remote-featured-plugins' ) );
+            wp_die( esc_html__( 'Security check failed.', 'plugincurator' ) );
         }
 
         // Check capabilities.
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html__( 'Unauthorized access.', 'remote-featured-plugins' ) );
+            wp_die( esc_html__( 'Unauthorized access.', 'plugincurator' ) );
         }
 
         // Test connection.
