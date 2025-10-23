@@ -112,8 +112,10 @@ class Admin_Menu {
             wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'plugincurator' ) );
         }
 
-        // Handle settings save.
-        if ( isset( $_POST['rfpm_save_settings'] ) ) {
+        // Handle settings save - verify nonce before processing.
+        if ( isset( $_POST['rfpm_save_settings'] ) && 
+             isset( $_POST['rfpm_settings_nonce'] ) && 
+             wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['rfpm_settings_nonce'] ) ), 'rfpm_save_settings' ) ) {
             $this->handle_settings_save();
         }
 
@@ -134,17 +136,7 @@ class Admin_Menu {
      * @since 2.0.0
      */
     private function handle_settings_save() {
-        // Verify nonce.
-        if ( ! isset( $_POST['rfpm_settings_nonce'] ) || 
-             ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['rfpm_settings_nonce'] ) ), 'rfpm_save_settings' ) ) {
-            add_settings_error(
-                'rfpm_messages',
-                'rfpm_nonce_error',
-                __( 'Security check failed. Please try again.', 'plugincurator' ),
-                'error'
-            );
-            return;
-        }
+        // Nonce is already verified in render_admin_page() before calling this method.
 
         // Validate and save remote URL.
         if ( isset( $_POST['rfpm_remote_url'] ) ) {
@@ -205,13 +197,14 @@ class Admin_Menu {
         // Clear cache.
         $this->cache_manager->clear_all();
 
-        // Redirect back with success message.
+        // Store success message in transient.
+        set_transient( 'rfpm_cache_refreshed', true, 30 );
+
+        // Redirect back.
         wp_safe_redirect(
             add_query_arg(
-                array(
-                    'page'      => 'rfpm-settings',
-                    'refreshed' => '1',
-                ),
+                'page',
+                'rfpm-settings',
                 admin_url( 'tools.php' )
             )
         );
@@ -239,15 +232,13 @@ class Admin_Menu {
         $test_results = $this->remote_source->test_connection();
 
         // Store results in transient for display.
-        set_transient( 'rfpm_test_results', $test_results, 60 );
+        set_transient( 'rfpm_test_results', $test_results, 30 );
 
         // Redirect back.
         wp_safe_redirect(
             add_query_arg(
-                array(
-                    'page'   => 'rfpm-settings',
-                    'tested' => '1',
-                ),
+                'page',
+                'rfpm-settings',
                 admin_url( 'tools.php' )
             )
         );

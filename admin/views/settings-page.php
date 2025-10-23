@@ -23,51 +23,52 @@ if ( ! defined( 'ABSPATH' ) ) {
 
     <?php settings_errors( 'rfpm_messages' ); ?>
 
-    <?php if ( isset( $_GET['refreshed'] ) && '1' === sanitize_text_field( wp_unslash( $_GET['refreshed'] ) ) ) : ?>
+    <?php
+    // Check for cache refresh success message.
+    if ( get_transient( 'rfpm_cache_refreshed' ) ) :
+        delete_transient( 'rfpm_cache_refreshed' );
+        ?>
         <div class="notice notice-success is-dismissible">
             <p><?php esc_html_e( 'Cache refreshed successfully!', 'plugincurator' ); ?></p>
         </div>
     <?php endif; ?>
 
     <?php
-    if ( isset( $_GET['tested'] ) && '1' === sanitize_text_field( wp_unslash( $_GET['tested'] ) ) ) :
-        $test_results = get_transient( 'rfpm_test_results' );
-        if ( $test_results ) :
-            $notice_class = $test_results['success'] ? 'notice-success' : 'notice-error';
-            ?>
-            <div class="notice <?php echo esc_attr( $notice_class ); ?> is-dismissible">
-                <p><strong><?php esc_html_e( 'Connection Test Results:', 'plugincurator' ); ?></strong></p>
-                <p><?php echo esc_html( $test_results['message'] ); ?></p>
-                <?php if ( ! empty( $test_results['data'] ) ) : ?>
-                    <ul style="list-style: disc; margin-left: 20px;">
+    // Check for connection test results.
+    $test_results = get_transient( 'rfpm_test_results' );
+    if ( $test_results ) :
+        delete_transient( 'rfpm_test_results' );
+        $notice_class = $test_results['success'] ? 'notice-success' : 'notice-error';
+        ?>
+        <div class="notice <?php echo esc_attr( $notice_class ); ?> is-dismissible">
+            <p><strong><?php esc_html_e( 'Connection Test Results:', 'plugincurator' ); ?></strong></p>
+            <p><?php echo esc_html( $test_results['message'] ); ?></p>
+            <?php if ( ! empty( $test_results['data'] ) ) : ?>
+                <ul style="list-style: disc; margin-left: 20px;">
+                    <li>
+                        <?php
+                        /* translators: %d: number of plugin slugs */
+                        printf( esc_html__( 'Total Slugs: %d', 'plugincurator' ), (int) $test_results['data']['total_slugs'] );
+                        ?>
+                    </li>
+                    <li>
+                        <?php
+                        /* translators: %d: number of valid plugin slugs */
+                        printf( esc_html__( 'Valid Slugs: %d', 'plugincurator' ), (int) $test_results['data']['valid_slugs'] );
+                        ?>
+                    </li>
+                    <?php if ( $test_results['data']['invalid_slugs'] > 0 ) : ?>
                         <li>
                             <?php
-                            /* translators: %d: number of plugin slugs */
-                            printf( esc_html__( 'Total Slugs: %d', 'plugincurator' ), (int) $test_results['data']['total_slugs'] );
+                            /* translators: %d: number of invalid plugin slugs */
+                            printf( esc_html__( 'Invalid Slugs: %d', 'plugincurator' ), (int) $test_results['data']['invalid_slugs'] );
                             ?>
                         </li>
-                        <li>
-                            <?php
-                            /* translators: %d: number of valid plugin slugs */
-                            printf( esc_html__( 'Valid Slugs: %d', 'plugincurator' ), (int) $test_results['data']['valid_slugs'] );
-                            ?>
-                        </li>
-                        <?php if ( $test_results['data']['invalid_slugs'] > 0 ) : ?>
-                            <li>
-                                <?php
-                                /* translators: %d: number of invalid plugin slugs */
-                                printf( esc_html__( 'Invalid Slugs: %d', 'plugincurator' ), (int) $test_results['data']['invalid_slugs'] );
-                                ?>
-                            </li>
-                        <?php endif; ?>
-                    </ul>
-                <?php endif; ?>
-            </div>
-            <?php
-            delete_transient( 'rfpm_test_results' );
-        endif;
-    endif;
-    ?>
+                    <?php endif; ?>
+                </ul>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
 
     <div class="card">
         <h2><?php esc_html_e( 'Settings', 'plugincurator' ); ?></h2>
