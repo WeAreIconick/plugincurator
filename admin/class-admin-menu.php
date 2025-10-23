@@ -73,8 +73,8 @@ class Admin_Menu {
      */
     public function add_admin_menu() {
         add_management_page(
-            __( 'Featured Plugins Manager', 'plugincurator' ),
-            __( 'Featured Plugins', 'plugincurator' ),
+            __( 'Plugin Curator', 'plugincurator' ),
+            __( 'Plugin Curator', 'plugincurator' ),
             'manage_options',
             'rfpm-settings',
             array( $this, 'render_admin_page' )

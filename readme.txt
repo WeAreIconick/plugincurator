@@ -12,7 +12,7 @@ Curate and manage featured plugins from a remote JSON source with real-time Word
 
 == Description ==
 
-Featured Curator allows you to curate and manage the featured plugins list from a remote JSON source while pulling real, up-to-date data from WordPress.org. Perfect for agencies, hosting companies, and WordPress networks that want to provide a customized plugin installation experience.
+Plugin Curator allows you to curate and manage the featured plugins list from a remote JSON source while pulling real, up-to-date data from WordPress.org. Perfect for agencies, hosting companies, and WordPress networks that want to provide a customized plugin installation experience.
 
 = Features =
 
@@ -127,7 +127,7 @@ Invalid slugs are skipped, and only valid plugins from WordPress.org are display
 Enhanced plugin cards now display complete information including icons, ratings, and compatibility badges.
 
 = 1.0.0 =
-Initial release of Featured Curator - professional plugin curation for WordPress.
+Initial release of Plugin Curator - professional plugin curation for WordPress.
 
 == Developer Information ==
 
@@ -150,10 +150,10 @@ Development happens on GitHub: https://github.com/iconick/featured-curator
 
 For bugs, feature requests, or questions:
 
-* GitHub Issues: https://github.com/iconick/featured-curator/issues
+* GitHub Issues: https://github.com/iconick/plugin-curator/issues
 * WordPress.org Support Forum
 
 == Privacy Policy ==
 
-Featured Curator does not collect, store, or transmit any user data. It only fetches public plugin information from WordPress.org and your configured remote JSON source.
+Plugin Curator does not collect, store, or transmit any user data. It only fetches public plugin information from WordPress.org and your configured remote JSON source.
 
