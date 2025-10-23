@@ -1,0 +1,41 @@
+{
+    "name": "iconick/plugin-curator",
+    "description": "Curate and manage the featured plugins list from a remote JSON file while pulling real data from WordPress.org",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "iconick",
+            "email": "hello@iconick.io",
+            "homepage": "https://iconick.io"
+        }
+    ],
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "yoast/phpunit-polyfills": "^1.0",
+        "10up/wp_mock": "^0.4",
+        "mockery/mockery": "^1.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "RFPM\\": "includes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "RFPM\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-html coverage"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    }
+}
+
