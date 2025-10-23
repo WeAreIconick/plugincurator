@@ -3,7 +3,7 @@
  * Plugin Name: Plugin Curator
  * Plugin URI: https://github.com/iconick/plugin-curator
  * Description: Manage featured plugins list from a remote JSON file while pulling real data from WordPress.org
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: iconick
  * Author URI: https://iconick.io
  * License: GPL v2 or later
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin version.
-define( 'RFPM_VERSION', '1.0.0' );
+define( 'RFPM_VERSION', '1.0.1' );
 
 // Plugin directory path.
 define( 'RFPM_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );

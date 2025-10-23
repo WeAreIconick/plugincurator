@@ -94,34 +94,55 @@ class API_Client {
     /**
      * Fetch single plugin data from WordPress.org.
      *
+     * Uses the WordPress Plugins API with full field specification to ensure
+     * all data needed for complete plugin card display is retrieved.
+     *
      * @since 2.0.0
      *
      * @param string $slug Plugin slug.
      * @return object|false Plugin data object or false on failure.
      */
     private function fetch_plugin( $slug ) {
-        $api_url = self::API_BASE_URL . $slug . '.json';
+        // Use plugins_api() to get complete plugin information with all fields.
+        require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
 
-        $response = wp_remote_get(
-            $api_url,
-            array(
-                'timeout'   => 10,
-                'sslverify' => true,
-            )
+        $args = array(
+            'slug'   => $slug,
+            'fields' => array(
+                'short_description'    => true,
+                'description'          => true,
+                'sections'             => true,
+                'tested'               => true,
+                'requires'             => true,
+                'requires_php'         => true,
+                'rating'               => true,
+                'ratings'              => true,
+                'num_ratings'          => true,
+                'downloaded'           => true,
+                'active_installs'      => true,
+                'last_updated'         => true,
+                'added'                => true,
+                'homepage'             => true,
+                'tags'                 => true,
+                'donate_link'          => true,
+                'icons'                => true,
+                'banners'              => true,
+                'screenshots'          => true,
+                'contributors'         => true,
+                'author'               => true,
+                'author_profile'       => true,
+                'download_link'        => true,
+                'version'              => true,
+            ),
         );
 
-        if ( is_wp_error( $response ) ) {
-            $this->log_error( "Failed to fetch {$slug}: " . $response->get_error_message() );
+        // Call the WordPress.org API using the standard WordPress function.
+        $plugin_data = plugins_api( 'plugin_information', $args );
+
+        if ( is_wp_error( $plugin_data ) ) {
+            $this->log_error( "Failed to fetch {$slug}: " . $plugin_data->get_error_message() );
             return false;
         }
-
-        $response_code = wp_remote_retrieve_response_code( $response );
-        if ( 200 !== $response_code ) {
-            $this->log_error( "Plugin {$slug} not found on WordPress.org (HTTP {$response_code})" );
-            return false;
-        }
-
-        $plugin_data = json_decode( wp_remote_retrieve_body( $response ) );
 
         if ( ! $plugin_data || ! isset( $plugin_data->slug ) ) {
             $this->log_error( "Invalid data received for {$slug}" );

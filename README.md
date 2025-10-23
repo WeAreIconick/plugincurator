@@ -10,6 +10,7 @@ A professional WordPress plugin that allows you to curate and manage the feature
 
 - **Remote Control**: Manage featured plugins from a centralized JSON file
 - **Live Data**: Pulls real-time plugin information from WordPress.org
+- **Complete Plugin Cards**: Displays all standard plugin information including icons, ratings, downloads, author info, and compatibility
 - **Smart Caching**: Configurable caching system for optimal performance
 - **Security First**: Built with WordPress security best practices
 - **API Authentication**: Optional Bearer token support for protected endpoints
@@ -116,8 +117,16 @@ If your remote JSON endpoint requires authentication, add a Bearer token in the 
 ## How It Works
 
 1. The plugin fetches plugin slugs from your remote JSON file
-2. For each slug, it retrieves current data from WordPress.org API
-3. Data includes: name, description, version, ratings, download counts, etc.
+2. For each slug, it retrieves complete data from WordPress.org API
+3. Data includes all standard plugin card fields:
+   - Plugin name and description
+   - Plugin icon and banner images
+   - Star ratings and number of reviews
+   - Download count and active installations
+   - Last updated date
+   - Author information
+   - WordPress version compatibility
+   - Download links and "More Details" links
 4. Everything is cached based on your configured duration
 5. If remote is unreachable, WordPress.org defaults are shown
 
@@ -223,6 +232,12 @@ See [DEVELOPER.md](docs/DEVELOPER.md) for complete hook reference.
 - Minimal database queries
 
 ## Changelog
+
+### 1.0.1 - 2025-10-23
+
+- Enhanced plugin card display to show all standard information
+- Now fetches complete plugin data including icons, banners, ratings, downloads, and more
+- Improved API client to request all available fields from WordPress.org
 
 ### 1.0.0 - 2025-10-23
 

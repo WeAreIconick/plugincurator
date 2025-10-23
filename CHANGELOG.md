@@ -5,6 +5,17 @@ All notable changes to Plugin Curator will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2025-10-23
+
+### Changed
+- Enhanced API client to request all plugin fields from WordPress.org API
+- Now uses `plugins_api()` with comprehensive field specification for complete plugin data
+- Plugin cards now display all standard information: icons, banners, ratings, downloads, author info, compatibility, and more
+
+### Fixed
+- Fixed plugin cards showing minimal information by requesting all available fields from WordPress.org
+- Improved data completeness for better user experience in Featured plugins tab
+
 ## [1.0.0] - 2025-10-23
 
 ### Added
@@ -144,5 +155,6 @@ For questions, bug reports, or feature requests:
 
 ---
 
+[1.0.1]: https://github.com/iconick/plugin-curator/releases/tag/v1.0.1
 [1.0.0]: https://github.com/iconick/plugin-curator/releases/tag/v1.0.0
 

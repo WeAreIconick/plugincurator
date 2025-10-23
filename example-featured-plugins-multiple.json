@@ -1,9 +1,12 @@
 [
   "akismet",
-  "contact-form-7",
   "wordpress-seo",
-  "woocommerce",
+  "contact-form-7",
+  "wordfence",
   "jetpack",
-  "classic-editor"
+  "elementor",
+  "woocommerce",
+  "updraftplus",
+  "duplicate-post",
+  "wp-super-cache"
 ]
-
