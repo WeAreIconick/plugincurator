@@ -234,7 +234,7 @@ class Remote_Source {
         $remote_url = get_option( 'rfpm_remote_url', '' );
 
         if ( empty( $remote_url ) ) {
-            $results['message'] = __( 'Remote URL not configured', 'plugincurator' );
+            $results['message'] = __( 'Remote URL not configured', 'the-curator' );
             return $results;
         }
 
@@ -242,7 +242,7 @@ class Remote_Source {
         $slugs = $this->fetch_remote_slugs();
 
         if ( false === $slugs ) {
-            $results['message'] = __( 'Failed to fetch data from remote source', 'plugincurator' );
+            $results['message'] = __( 'Failed to fetch data from remote source', 'the-curator' );
             return $results;
         }
 
@@ -251,7 +251,7 @@ class Remote_Source {
         $results['success'] = true;
         $results['message'] = sprintf(
             /* translators: %d: number of plugins */
-            __( 'Successfully fetched %d plugin slugs', 'plugincurator' ),
+            __( 'Successfully fetched %d plugin slugs', 'the-curator' ),
             count( $validated_slugs )
         );
         $results['data'] = array(

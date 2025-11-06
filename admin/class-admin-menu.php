@@ -73,8 +73,8 @@ class Admin_Menu {
      */
     public function add_admin_menu() {
         add_management_page(
-            __( 'Plugin Curator', 'plugincurator' ),
-            __( 'Plugin Curator', 'plugincurator' ),
+            __( 'The Curator', 'the-curator' ),
+            __( 'The Curator', 'the-curator' ),
             'manage_options',
             'rfpm-settings',
             array( $this, 'render_admin_page' )
@@ -93,7 +93,7 @@ class Admin_Menu {
         $settings_link = sprintf(
             '<a href="%s">%s</a>',
             esc_url( admin_url( 'tools.php?page=rfpm-settings' ) ),
-            esc_html__( 'Settings', 'plugincurator' )
+            esc_html__( 'Settings', 'the-curator' )
         );
 
         array_unshift( $links, $settings_link );
@@ -109,7 +109,7 @@ class Admin_Menu {
     public function render_admin_page() {
         // Check user capabilities.
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'plugincurator' ) );
+            wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'the-curator' ) );
         }
 
         // Handle settings save - verify nonce before processing.
@@ -156,7 +156,7 @@ class Admin_Menu {
                 add_settings_error(
                     'rfpm_messages',
                     'rfpm_invalid_url',
-                    __( 'Invalid remote URL. Please provide a valid HTTP or HTTPS URL.', 'plugincurator' ),
+                    __( 'Invalid remote URL. Please provide a valid HTTP or HTTPS URL.', 'the-curator' ),
                     'error'
                 );
                 return;
@@ -179,7 +179,7 @@ class Admin_Menu {
         add_settings_error(
             'rfpm_messages',
             'rfpm_settings_saved',
-            __( 'Settings saved successfully!', 'plugincurator' ),
+            __( 'Settings saved successfully!', 'the-curator' ),
             'success'
         );
     }
@@ -193,12 +193,12 @@ class Admin_Menu {
         // Verify nonce.
         if ( ! isset( $_POST['rfpm_refresh_nonce'] ) ||
              ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['rfpm_refresh_nonce'] ) ), 'rfpm_refresh_cache' ) ) {
-            wp_die( esc_html__( 'Security check failed.', 'plugincurator' ) );
+            wp_die( esc_html__( 'Security check failed.', 'the-curator' ) );
         }
 
         // Check capabilities.
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html__( 'Unauthorized access.', 'plugincurator' ) );
+            wp_die( esc_html__( 'Unauthorized access.', 'the-curator' ) );
         }
 
         // Clear cache.
@@ -227,12 +227,12 @@ class Admin_Menu {
         // Verify nonce.
         if ( ! isset( $_POST['rfpm_test_nonce'] ) ||
              ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['rfpm_test_nonce'] ) ), 'rfpm_test_connection' ) ) {
-            wp_die( esc_html__( 'Security check failed.', 'plugincurator' ) );
+            wp_die( esc_html__( 'Security check failed.', 'the-curator' ) );
         }
 
         // Check capabilities.
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html__( 'Unauthorized access.', 'plugincurator' ) );
+            wp_die( esc_html__( 'Unauthorized access.', 'the-curator' ) );
         }
 
         // Test connection.
