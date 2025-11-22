@@ -58,6 +58,11 @@ class Plugin_Filter {
      * Initialize hooks.
      *
      * @since 2.0.0
+     *
+     * Note: This filter is used to customize the Featured plugins list display only.
+     * It does NOT interfere with plugin updates or the WordPress.org update system.
+     * The filter only intercepts 'query_plugins' requests with 'browse=featured',
+     * allowing the plugin to replace the default featured plugins list with a curated one.
      */
     public function init() {
         add_filter( 'plugins_api', array( $this, 'filter_featured_plugins' ), 10, 3 );
@@ -65,6 +70,10 @@ class Plugin_Filter {
 
     /**
      * Filter featured plugins API requests.
+     *
+     * This method ONLY filters the Featured plugins list display in Plugins → Add New.
+     * It does NOT interfere with plugin updates, update checks, or the WordPress.org update system.
+     * Updates continue to work normally through WordPress.org.
      *
      * @since 2.0.0
      *
@@ -74,7 +83,8 @@ class Plugin_Filter {
      * @return false|object Modified result or false to use default.
      */
     public function filter_featured_plugins( $result, $action, $args ) {
-        // Only intercept featured plugin queries.
+        // Only intercept featured plugin queries for display purposes.
+        // This does NOT affect plugin updates or update checks.
         if ( 'query_plugins' !== $action ) {
             return $result;
         }

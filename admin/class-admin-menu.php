@@ -73,8 +73,8 @@ class Admin_Menu {
      */
     public function add_admin_menu() {
         add_management_page(
-            __( 'The Curator', 'the-curator' ),
-            __( 'The Curator', 'the-curator' ),
+            __( 'The Curator by Iconick', 'iconick-featured-curator' ),
+            __( 'The Curator by Iconick', 'iconick-featured-curator' ),
             'manage_options',
             'rfpm-settings',
             array( $this, 'render_admin_page' )
@@ -93,7 +93,7 @@ class Admin_Menu {
         $settings_link = sprintf(
             '<a href="%s">%s</a>',
             esc_url( admin_url( 'tools.php?page=rfpm-settings' ) ),
-            esc_html__( 'Settings', 'the-curator' )
+            esc_html__( 'Settings', 'iconick-featured-curator' )
         );
 
         array_unshift( $links, $settings_link );
@@ -109,7 +109,7 @@ class Admin_Menu {
     public function render_admin_page() {
         // Check user capabilities.
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'the-curator' ) );
+            wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'iconick-featured-curator' ) );
         }
 
         // Handle settings save - verify nonce before processing.
@@ -156,7 +156,7 @@ class Admin_Menu {
                 add_settings_error(
                     'rfpm_messages',
                     'rfpm_invalid_url',
-                    __( 'Invalid remote URL. Please provide a valid HTTP or HTTPS URL.', 'the-curator' ),
+                    __( 'Invalid remote URL. Please provide a valid HTTP or HTTPS URL.', 'iconick-featured-curator' ),
                     'error'
                 );
                 return;
@@ -179,7 +179,7 @@ class Admin_Menu {
         add_settings_error(
             'rfpm_messages',
             'rfpm_settings_saved',
-            __( 'Settings saved successfully!', 'the-curator' ),
+            __( 'Settings saved successfully!', 'iconick-featured-curator' ),
             'success'
         );
     }
@@ -193,12 +193,12 @@ class Admin_Menu {
         // Verify nonce.
         if ( ! isset( $_POST['rfpm_refresh_nonce'] ) ||
              ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['rfpm_refresh_nonce'] ) ), 'rfpm_refresh_cache' ) ) {
-            wp_die( esc_html__( 'Security check failed.', 'the-curator' ) );
+            wp_die( esc_html__( 'Security check failed.', 'iconick-featured-curator' ) );
         }
 
         // Check capabilities.
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html__( 'Unauthorized access.', 'the-curator' ) );
+            wp_die( esc_html__( 'Unauthorized access.', 'iconick-featured-curator' ) );
         }
 
         // Clear cache.
@@ -227,12 +227,12 @@ class Admin_Menu {
         // Verify nonce.
         if ( ! isset( $_POST['rfpm_test_nonce'] ) ||
              ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['rfpm_test_nonce'] ) ), 'rfpm_test_connection' ) ) {
-            wp_die( esc_html__( 'Security check failed.', 'the-curator' ) );
+            wp_die( esc_html__( 'Security check failed.', 'iconick-featured-curator' ) );
         }
 
         // Check capabilities.
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html__( 'Unauthorized access.', 'the-curator' ) );
+            wp_die( esc_html__( 'Unauthorized access.', 'iconick-featured-curator' ) );
         }
 
         // Test connection.

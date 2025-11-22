@@ -1,4 +1,4 @@
-=== The Curator ===
+=== The Curator by Iconick ===
 Contributors: iconick
 Tags: plugins, featured, curate, manage, remote
 Requires at least: 5.8
@@ -12,7 +12,7 @@ Curate and manage featured plugins from a remote JSON source with real-time Word
 
 == Description ==
 
-The Curator allows you to curate and manage the featured plugins list from a remote JSON source while pulling real, up-to-date data from WordPress.org. Perfect for agencies, hosting companies, and WordPress networks that want to provide a customized plugin installation experience.
+The Curator by Iconick allows you to curate and manage the featured plugins list from a remote JSON source while pulling real, up-to-date data from WordPress.org. Perfect for agencies, hosting companies, and WordPress networks that want to provide a customized plugin installation experience.
 
 = Features =
 
@@ -127,7 +127,7 @@ Invalid slugs are skipped, and only valid plugins from WordPress.org are display
 Enhanced plugin cards now display complete information including icons, ratings, and compatibility badges.
 
 = 1.0.0 =
-Initial release of The Curator - professional plugin curation for WordPress.
+Initial release of The Curator by Iconick - professional plugin curation for WordPress.
 
 == Developer Information ==
 
@@ -153,7 +153,36 @@ For bugs, feature requests, or questions:
 * GitHub Issues: https://github.com/iconick/the-curator/issues
 * WordPress.org Support Forum
 
+== External Services ==
+
+This plugin connects to external services to provide its functionality:
+
+**WordPress.org Plugin API**
+
+This plugin connects to the WordPress.org Plugin API (https://api.wordpress.org/plugins/info/1.0/) to retrieve plugin information including names, descriptions, ratings, download counts, compatibility information, and other metadata.
+
+* **What data is sent**: Plugin slugs (identifiers) are sent to WordPress.org when fetching plugin information. No user data, site information, or personal information is transmitted.
+* **When data is sent**: Plugin information is fetched when:
+  - A user visits the Featured tab in Plugins → Add New
+  - The cache expires and needs to be refreshed
+  - A manual cache refresh is triggered
+  - A connection test is performed from the admin settings page
+* **Service provider**: WordPress.org (WordPress Foundation)
+* **Terms of Service**: https://wordpress.org/about/tos/
+* **Privacy Policy**: https://wordpress.org/about/privacy/
+
+**User-Configured Remote JSON Source**
+
+This plugin can optionally connect to a remote JSON file (configured by the site administrator) to fetch a list of plugin slugs to feature.
+
+* **What data is sent**: HTTP request headers may include an optional API key (Bearer token) if configured by the administrator. No user data or personal information is transmitted.
+* **When data is sent**: The remote JSON file is fetched when:
+  - Plugin slugs need to be retrieved (on cache expiration or manual refresh)
+  - A connection test is performed from the admin settings page
+* **Service provider**: This is configured by the site administrator and may be hosted on any server of their choice (their own server, GitHub, CDN, etc.)
+* **Terms of Service and Privacy Policy**: Determined by the service provider chosen by the site administrator
+
 == Privacy Policy ==
 
-The Curator does not collect, store, or transmit any user data. It only fetches public plugin information from WordPress.org and your configured remote JSON source.
+The Curator by Iconick does not collect, store, or transmit any user data. It only fetches public plugin information from WordPress.org and your configured remote JSON source.
 

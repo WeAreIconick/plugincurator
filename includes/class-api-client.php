@@ -104,7 +104,16 @@ class API_Client {
      */
     private function fetch_plugin( $slug ) {
         // Use plugins_api() to get complete plugin information with all fields.
-        require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+        // Check if function exists (it should be available in admin context, but we check for safety).
+        if ( ! function_exists( 'plugins_api' ) ) {
+            // Only load if we're in admin context or during AJAX/admin-post requests.
+            if ( is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) || ( defined( 'DOING_CRON' ) && DOING_CRON ) ) {
+                require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+            } else {
+                $this->log_error( 'plugins_api() function not available outside admin context' );
+                return false;
+            }
+        }
 
         $args = array(
             'slug'   => $slug,

@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name: The Curator
+ * Plugin Name: The Curator by Iconick
  * Description: Manage featured plugins list from a remote JSON file while pulling real data from WordPress.org
  * Version: 1.0.1
  * Author: iconick
  * Author URI: https://iconick.io
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: the-curator
+ * Text Domain: iconick-featured-curator
  * Domain Path: /languages
  * Requires at least: 5.8
  * Requires PHP: 7.4

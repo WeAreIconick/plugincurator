@@ -138,11 +138,11 @@ class Settings {
      */
     public function get_cache_duration_options() {
         return array(
-            1 * HOUR_IN_SECONDS  => __( '1 Hour', 'the-curator' ),
-            3 * HOUR_IN_SECONDS  => __( '3 Hours', 'the-curator' ),
-            6 * HOUR_IN_SECONDS  => __( '6 Hours', 'the-curator' ),
-            12 * HOUR_IN_SECONDS => __( '12 Hours', 'the-curator' ),
-            24 * HOUR_IN_SECONDS => __( '24 Hours', 'the-curator' ),
+            1 * HOUR_IN_SECONDS  => __( '1 Hour', 'iconick-featured-curator' ),
+            3 * HOUR_IN_SECONDS  => __( '3 Hours', 'iconick-featured-curator' ),
+            6 * HOUR_IN_SECONDS  => __( '6 Hours', 'iconick-featured-curator' ),
+            12 * HOUR_IN_SECONDS => __( '12 Hours', 'iconick-featured-curator' ),
+            24 * HOUR_IN_SECONDS => __( '24 Hours', 'iconick-featured-curator' ),
         );
     }
 }
